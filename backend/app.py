@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_cors import cross_origin
+import yfinance as yf
 
 app = Flask(__name__)
 
@@ -8,5 +9,8 @@ app = Flask(__name__)
 def tickerSymbol():
     # Get ticker symbol from frontend
     if request.method == "POST":
-        print("Ticker Symbol: " + str(request.json.get("tickerSymbol")))
+        tickerSymbol = str(request.json.get("tickerSymbol"))
+        tickerInformation = yf.Ticker(tickerSymbol).info
+        currentPrice = tickerInformation["currentPrice"] 
+        print("tickerInformation: " + str(tickerInformation))
     return "200", 200
