@@ -11,6 +11,7 @@ def tickerSymbol():
     if request.method == "POST":
         tickerSymbol = str(request.json.get("tickerSymbol"))
         tickerInformation = yf.Ticker(tickerSymbol).info
+        # Get the current price of the stock
         currentPrice = tickerInformation["currentPrice"] 
         print("tickerInformation: " + str(tickerInformation))
     return "200", 200
