@@ -9,12 +9,15 @@ export default function App() {
   const [address, setAddress] = useState('')
   const [website, setWebsite] = useState('')
   const [keyFigure, setKeyFigure] = useState('')
+  const [grossProfits, setGrossProfits] = useState('')
+  const [grossMargins, setGrossMargins] = useState('')
+  const [earningsGrowth, setEarningsGrowth] = useState('')
 
   // Send ticker symbol to backend
   const submit = async (event) => {
     event.preventDefault();
     await axios.post("http://localhost:5000/tickerSymbol", {tickerSymbol})
-      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure)})
+      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth)})
   };
 
   // Initial frontend for user input
@@ -38,7 +41,12 @@ export default function App() {
       Website: {website}
       <p></p>
       Key Figure: {keyFigure}
-
+      <p></p>
+      Gross Profits: {grossProfits}
+      <p></p>
+      Gross Margins: {grossMargins}
+      <p></p>
+      Earnings Growth: {earningsGrowth}
     </div>
     </div>
   );
