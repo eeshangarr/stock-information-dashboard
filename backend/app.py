@@ -8,25 +8,6 @@ from requests_html import HTML
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 
-def webScraping(company):
-    company = company + " top" + " stories"
-    session = HTMLSession()
-    query = urllib.parse.quote_plus(company)
-    response = session.get("https://www.google.com/search?q=" + query)
-    identifierResult = ".tF2Cxc"
-    identifierLink = ".yuRUbf a"
-    results = response.html.find(identifierResult)
-    links = []
-    for result in results:
-        if len(links) <= 5:
-            links.append(result.find(identifierLink, first=True).attrs["href"])
-    print("links: " + str(links))
-    return ""
-
-def sentimentAnalysis(text):
-    sentiment = SentimentIntensityAnalyzer()
-    return sentiment.polarity_scores(text)
-
 app = Flask(__name__)
 
 @app.route("/tickerSymbol", methods = ["POST", "OPTIONS"])
@@ -38,7 +19,6 @@ def tickerSymbol():
         tickerInformation = yf.Ticker(tickerSymbol).info
         # Get certain information about the stock
         shortName = str(tickerInformation["shortName"]) 
-        webScraping(shortName)
         currentPrice = str(tickerInformation["currentPrice"]) 
         totalRevenue = str(tickerInformation["totalRevenue"])
         address = str(tickerInformation["address1"]) +  ", " + str(tickerInformation["city"]) +  ", " + str(tickerInformation["state"]) +  ", " + str(tickerInformation["zip"]) 
