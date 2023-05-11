@@ -3,10 +3,22 @@ from flask_cors import cross_origin
 import yfinance as yf
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import requests
-import urllib
-from requests_html import HTML
-from requests_html import HTMLSession
-from bs4 import BeautifulSoup
+
+def companyNews(company):
+    # Define news titles list
+    newsTitles = []
+
+    # Make a request to the News API, which returns a JSON dictionary with news articles
+    response = requests.get("https://newsapi.org/v2/everything?q=" + company + "&apiKey=feb512529033419d92ef36b32155b369")
+
+    # Get 5 news article titles
+    index = 0
+    while index < 5:
+        newsTitles.append(response.json()["articles"][index]["title"])
+        index += 1
+
+    # Return news titles
+    return newsTitles
 
 app = Flask(__name__)
 
@@ -17,6 +29,7 @@ def tickerSymbol():
     if request.method == "POST":
         tickerSymbol = str(request.json.get("tickerSymbol"))
         tickerInformation = yf.Ticker(tickerSymbol).info
+
         # Get certain information about the stock
         shortName = str(tickerInformation["shortName"]) 
         currentPrice = str(tickerInformation["currentPrice"]) 
@@ -28,4 +41,17 @@ def tickerSymbol():
         grossProfits = str(tickerInformation["grossProfits"])
         grossMargins = str(tickerInformation["grossMargins"])
         earningsGrowth = str(tickerInformation["earningsGrowth"])
+
+        # Get company name to get current company news
+        companyName = ""
+        for character in shortName:
+            if character == ' ':
+                break
+            else:
+                companyName += character
+
+        # Call companyNews function
+        companyNews(companyName)
+
+    # Return dictionary with stock infomration
     return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth}, 200

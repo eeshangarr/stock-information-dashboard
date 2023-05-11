@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from 'axios' // Axios is used to communicate with the backend
 
 export default function App() {
+  // Define frontend variables
   const [tickerSymbol, setTickerSymbol] = useState('')
   const [currentPrice, setCurrentPrice] = useState('')
   const [totalRevenue, setTotalRevenue] = useState('')
@@ -13,14 +14,16 @@ export default function App() {
   const [grossMargins, setGrossMargins] = useState('')
   const [earningsGrowth, setEarningsGrowth] = useState('')
 
-  // Send ticker symbol to backend
+  // Backend and frontend communication
   const submit = async (event) => {
     event.preventDefault();
+    // Send ticker symbol to backend
     await axios.post("http://localhost:5000/tickerSymbol", {tickerSymbol})
+      // Get stock information from the backend
       .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth)})
   };
 
-  // Initial frontend for user input
+  // Initial frontend for user input and information display
   return (
     <div>
     <div>
