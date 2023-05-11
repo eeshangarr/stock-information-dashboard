@@ -20,6 +20,19 @@ def companyNews(company):
     # Return news titles
     return newsTitles
 
+def sentimentAnalysis(titles):
+    # Define a list of scores
+    scores = []
+    # Define SentimentIntensityAnalyzer object
+    sentiment = SentimentIntensityAnalyzer()
+    # Go through titles
+    for title in titles:
+        # Find polarity score for each title and store in scores
+        scores.append(sentiment.polarity_scores(title))
+    print(scores)
+    return 
+
+
 app = Flask(__name__)
 
 @app.route("/tickerSymbol", methods = ["POST", "OPTIONS"])
@@ -52,6 +65,9 @@ def tickerSymbol():
 
         # Call companyNews function
         companyNews(companyName)
+
+        # Call sentimentAnalysis function, currently for testing
+        sentimentAnalysis(companyNews(companyName))
 
     # Return dictionary with stock infomration
     return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth}, 200
