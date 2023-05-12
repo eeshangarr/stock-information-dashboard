@@ -3,6 +3,7 @@ from flask_cors import cross_origin
 import yfinance as yf
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import requests
+from statistics import mean
 
 def companyNews(company):
     # Define news titles list
@@ -11,7 +12,7 @@ def companyNews(company):
     # Make a request to the News API, which returns a JSON dictionary with news articles
     response = requests.get("https://newsapi.org/v2/everything?q=" + company + "&apiKey=feb512529033419d92ef36b32155b369")
 
-    # Get 5 news article titles
+    # Get 5 news article titles, possibly change limit
     index = 0
     while index < 5:
         newsTitles.append(response.json()["articles"][index]["title"])
@@ -23,14 +24,43 @@ def companyNews(company):
 def sentimentAnalysis(titles):
     # Define a list of scores
     scores = []
+
     # Define SentimentIntensityAnalyzer object
     sentiment = SentimentIntensityAnalyzer()
+
     # Go through titles
     for title in titles:
         # Find polarity score for each title and store in scores
         scores.append(sentiment.polarity_scores(title))
-    print(scores)
-    return 
+
+    # Define a place to score each of the scores
+    negativeScores = []
+    neutralScores = []
+    positiveScores = []
+
+    # Store the scores
+    for dictionary in scores:
+        for key, value in dictionary.items():
+            if key == 'neg':
+                negativeScores.append(value)
+            if key == 'neu':
+                neutralScores.append(value)
+            if key == 'pos':
+                positiveScores.append(value)
+
+    # Find the overall average of each type of score and store in a dictionary
+    averageScores = {"Negative" : mean(negativeScores), "Positive" : mean(positiveScores), "Neutral" : mean(neutralScores)}
+
+    # Find the rating with the highest average score
+    maximumScore = averageScores["Negative"]
+    rating = ""
+    for key, value in averageScores.items():
+        if value > maximumScore:
+            maximumScore = value
+            rating = key
+    
+    # Return the rating
+    return rating
 
 
 app = Flask(__name__)
