@@ -13,6 +13,7 @@ export default function App() {
   const [grossProfits, setGrossProfits] = useState('')
   const [grossMargins, setGrossMargins] = useState('')
   const [earningsGrowth, setEarningsGrowth] = useState('')
+  const [companyRating, setCompanyRating] = useState('')
 
   // Backend and frontend communication
   const submit = async (event) => {
@@ -20,7 +21,7 @@ export default function App() {
     // Send ticker symbol to backend
     await axios.post("http://localhost:5000/tickerSymbol", {tickerSymbol})
       // Get stock information from the backend
-      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth)})
+      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating)})
   };
 
   // Initial frontend for user input and information display
@@ -50,6 +51,8 @@ export default function App() {
       Gross Margins: {grossMargins}
       <p></p>
       Earnings Growth: {earningsGrowth}
+      <p></p>
+      Sentiment Analysis: {companyRating}
     </div>
     </div>
   );

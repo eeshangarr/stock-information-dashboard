@@ -58,7 +58,7 @@ def sentimentAnalysis(titles):
         if value > maximumScore:
             maximumScore = value
             rating = key
-    
+
     # Return the rating
     return rating
 
@@ -93,11 +93,8 @@ def tickerSymbol():
             else:
                 companyName += character
 
-        # Call companyNews function
-        companyNews(companyName)
-
-        # Call sentimentAnalysis function, currently for testing
-        sentimentAnalysis(companyNews(companyName))
+        # Get company rating based on sentiment analysis function
+        companyRating = sentimentAnalysis(companyNews(companyName))
 
     # Return dictionary with stock infomration
-    return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth}, 200
+    return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating}, 200
