@@ -5,17 +5,25 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import requests
 from statistics import mean
 
+global newsLinks
+newsLinks = []
+
+
 def companyNews(company):
-    # Define news titles list
+    # Define news titles and links list
     newsTitles = []
 
     # Make a request to the News API, which returns a JSON dictionary with news articles
     response = requests.get("https://newsapi.org/v2/everything?q=" + company + "&apiKey=feb512529033419d92ef36b32155b369")
 
-    # Get 5 news article titles, possibly change limit
+
+    # Get news article titles and links
     index = 0
     while index < 5:
-        newsTitles.append(response.json()["articles"][index]["title"])
+        # Keep number of news links under 3
+        if len(newsLinks) < 3:
+            newsLinks.append(response.json()["articles"][index]["url"])
+        newsTitles.append(response.json()["articles"][index]["title"] + " ")
         index += 1
 
     # Return news titles
@@ -97,4 +105,4 @@ def tickerSymbol():
         companyRating = sentimentAnalysis(companyNews(companyName))
 
     # Return dictionary with stock infomration
-    return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating}, 200
+    return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating, "newsLinks" : newsLinks}, 200
