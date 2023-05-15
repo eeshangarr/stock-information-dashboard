@@ -1,12 +1,15 @@
 .frontend {
     height: 100vh;
-    background: linear-gradient(to bottom, #000080, #1E3163);
+    background: #202A44;
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .title {
     text-align: center;
+    color: aliceblue;
     font-size: 50px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .input {
@@ -14,27 +17,32 @@
 }
 
 .tickerSymbol {
+    margin-top: 5px;
     height: 20px;
     width: 200px;
     text-align: center;
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    border-radius: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .button {
     text-align: center;
     margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.finances {
-    text-align: center;
-    margin-right: 450px;
+.business {
+    text-align: left;
+    margin-left: 450px;
 }
 
 .personal {
     text-align: center;
     position: relative;
-    bottom: 342px;
-    margin-left: 350px;
+    bottom: 320px;
+    margin-left: 450px;
+}
+
+.news {
+    margin-top: 150px;
 }

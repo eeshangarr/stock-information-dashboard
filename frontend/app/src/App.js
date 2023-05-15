@@ -23,7 +23,7 @@ export default function App() {
     // Send ticker symbol to backend
     await axios.post("http://localhost:5000/tickerSymbol", {tickerSymbol})
       // Get stock information from the backend
-      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating); setNewsLinks(data.newsLinks)})
+      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating); setNewsLinks(data.newsLinks);})
   };
 
   // Frontend for user input and information display
@@ -37,7 +37,7 @@ export default function App() {
     <div className = "button"><button className = "submitButton" type = "submit">Submit</button></div>
     </form>
 
-      <div className = "finances">
+      <div className = "business">
       Total Revenue: {totalRevenue}
       <p></p>
       Current Price: {currentPrice}
@@ -59,9 +59,14 @@ export default function App() {
 
       <div className = "personal">
       <p></p>
-      Sentiment Analysis: {companyRating}
+      <u>Sentiment Analysis</u> 
+      <div className= "rating">{companyRating}</div>
       <p></p>
-      News Links: {newsLinks}
+      <div className = "news">
+      <u>News Links</u>
+      <p></p>
+      {newsLinks}
+      </div>
       </div>
 
     </div>
