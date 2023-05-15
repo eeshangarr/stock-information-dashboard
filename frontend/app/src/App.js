@@ -15,7 +15,7 @@ export default function App() {
   const [grossMargins, setGrossMargins] = useState('')
   const [earningsGrowth, setEarningsGrowth] = useState('')
   const [companyRating, setCompanyRating] = useState('')
-  const [newsLinks, setNewsLinks] = useState('')
+  const [newsLinks, setNewsLinks] = useState([])
 
   // Backend and frontend communication
   const submit = async (event) => {
@@ -46,7 +46,7 @@ export default function App() {
       <p></p>
       Address: {address}
       <p></p>
-      Website: {website}
+      <a href={website}>Website</a>
       <p></p>
       Key Figure: {keyFigure}
       <p></p>
@@ -63,9 +63,14 @@ export default function App() {
       <div className= "rating">{companyRating}</div>
       <p></p>
       <div className = "news">
-      <u>News Links</u>
+      <u className = "links">News Links</u>
       <p></p>
-      {newsLinks}
+      <ul className = "map">
+      {newsLinks.map(function(link, index){
+          <p></p>
+          return <a href = {link} > | Link {index + 1} | </a>;
+        })}
+      </ul>
       </div>
       </div>
 
