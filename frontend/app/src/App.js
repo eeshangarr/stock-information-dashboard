@@ -1,4 +1,5 @@
 import React, {useState} from 'react' 
+import "./App.css"
 import axios from 'axios' // Axios is used to communicate with the backend
 
 export default function App() {
@@ -27,14 +28,16 @@ export default function App() {
 
   // Frontend for user input and information display
   return (
-    <div>
-    <div>
+    <div className = "frontend">
+
+    <div className = "title">Stock Market Dashboard</div>
+    
     <form onSubmit = {submit}>
-    <input placeholder='Enter Ticker Symbol' class = "tickerSymbol" type = "text" value = {tickerSymbol} onChange = {(event) => setTickerSymbol(event.target.value)}/>
-    <button type = "submit">Submit</button>
+    <div className = "input"><input placeholder='Enter Ticker Symbol' class = "tickerSymbol" type = "text" value = {tickerSymbol} onChange = {(event) => setTickerSymbol(event.target.value)}/></div>
+    <div className = "button"><button className = "submitButton" type = "submit">Submit</button></div>
     </form>
-    </div>
-    <div>
+
+      <div className = "finances">
       Total Revenue: {totalRevenue}
       <p></p>
       Current Price: {currentPrice}
@@ -52,11 +55,15 @@ export default function App() {
       Gross Margins: {grossMargins}
       <p></p>
       Earnings Growth: {earningsGrowth}
+      </div>
+
+      <div className = "personal">
       <p></p>
       Sentiment Analysis: {companyRating}
       <p></p>
       News Links: {newsLinks}
-    </div>
+      </div>
+
     </div>
   );
 }
