@@ -1,4 +1,5 @@
 import React, {useState} from 'react' 
+import "./App.css"
 import axios from 'axios' // Axios is used to communicate with the backend
 
 export default function App() {
@@ -14,7 +15,7 @@ export default function App() {
   const [grossMargins, setGrossMargins] = useState('')
   const [earningsGrowth, setEarningsGrowth] = useState('')
   const [companyRating, setCompanyRating] = useState('')
-  const [newsLinks, setNewsLinks] = useState('')
+  const [newsLinks, setNewsLinks] = useState([])
 
   // Backend and frontend communication
   const submit = async (event) => {
@@ -22,19 +23,21 @@ export default function App() {
     // Send ticker symbol to backend
     await axios.post("http://localhost:5000/tickerSymbol", {tickerSymbol})
       // Get stock information from the backend
-      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating); setNewsLinks(data.newsLinks)})
+      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating); setNewsLinks(data.newsLinks);})
   };
 
   // Frontend for user input and information display
   return (
-    <div>
-    <div>
+    <div className = "frontend">
+
+    <div className = "title">Stock Market Dashboard</div>
+    
     <form onSubmit = {submit}>
-    <input placeholder='Enter Ticker Symbol' class = "tickerSymbol" type = "text" value = {tickerSymbol} onChange = {(event) => setTickerSymbol(event.target.value)}/>
-    <button type = "submit">Submit</button>
+    <div className = "input"><input placeholder='Enter Ticker Symbol' class = "tickerSymbol" type = "text" value = {tickerSymbol} onChange = {(event) => setTickerSymbol(event.target.value)}/></div>
+    <div className = "button"><button className = "submitButton" type = "submit">Submit</button></div>
     </form>
-    </div>
-    <div>
+
+      <div className = "business">
       Total Revenue: {totalRevenue}
       <p></p>
       Current Price: {currentPrice}
@@ -52,11 +55,25 @@ export default function App() {
       Gross Margins: {grossMargins}
       <p></p>
       Earnings Growth: {earningsGrowth}
+      </div>
+
+      <div className = "personal">
       <p></p>
-      Sentiment Analysis: {companyRating}
+      <u>Sentiment Analysis</u> 
+      <div className= "rating">{companyRating}</div>
       <p></p>
-      News Links: {newsLinks}
-    </div>
+      <div className = "news">
+      <u className = "links">News Links</u>
+      <p></p>
+      <ul className = "map">
+      {newsLinks.map(function(link, index){
+          <p></p>
+          return <a href = {link} > | Link {index + 1} | </a>;
+        })}
+      </ul>
+      </div>
+      </div>
+
     </div>
   );
 }

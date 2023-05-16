@@ -5,13 +5,11 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import requests
 from statistics import mean
 
-global newsLinks
-newsLinks = []
-
 
 def companyNews(company):
     # Define news titles and links list
     newsTitles = []
+    newsLinks = []
 
     # Make a request to the News API, which returns a JSON dictionary with news articles
     response = requests.get("https://newsapi.org/v2/everything?q=" + company + "&apiKey=feb512529033419d92ef36b32155b369")
@@ -19,7 +17,7 @@ def companyNews(company):
 
     # Get news article titles and links
     index = 0
-    while index < 5:
+    while index < 10:
         # Keep number of news links under 3
         if len(newsLinks) < 3:
             newsLinks.append(response.json()["articles"][index]["url"])
@@ -27,7 +25,7 @@ def companyNews(company):
         index += 1
 
     # Return news titles
-    return newsTitles
+    return [newsTitles, newsLinks]
 
 def sentimentAnalysis(titles):
     # Define a list of scores
@@ -102,7 +100,11 @@ def tickerSymbol():
                 companyName += character
 
         # Get company rating based on sentiment analysis function
-        companyRating = sentimentAnalysis(companyNews(companyName))
+        companyRating = sentimentAnalysis(companyNews(companyName)[0])
 
-    # Return dictionary with stock infomration
-    return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating, "newsLinks" : newsLinks}, 200
+        print(companyNews(companyName)[1])
+
+        # Return dictionary with stock infomration
+        return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating, "newsLinks" : companyNews(companyName)[1]}, 200
+    
+    return "", 404

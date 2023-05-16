@@ -1,38 +1,61 @@
-.App {
-  text-align: center;
+.frontend {
+    height: 100vh;
+    background: #202A44;
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+    text-align: center;
+    color: aliceblue;
+    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.input {
+    text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.tickerSymbol {
+    margin-top: 5px;
+    height: 20px;
+    width: 200px;
+    text-align: center;
+    border-radius: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.button {
+    text-align: center;
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.business {
+    text-align: left;
+    margin-left: 450px;
+}
+
+.personal {
+    text-align: center;
+    position: relative;
+    bottom: 320px;
+    margin-left: 450px;
+}
+
+.news {
+    margin-top: 150px;
+    margin-right: 15px;
+}
+
+.links {
+    margin-left: 15px;
+}
+
+.rating {
+    margin-top: 10px;
+}
+
+.map {
+    margin-right: 23px;
 }
