@@ -46,6 +46,9 @@ export default function App() {
       <p></p>
       Address: {address}
       <p></p>
+      </div>
+      <div className = "companyWebsite"><a href = {website}>{website}</a></div>
+      <div className = "businessBottom">
       Website: {website}
       <p></p>
       Key Figure: {keyFigure}
@@ -56,24 +59,29 @@ export default function App() {
       <p></p>
       Earnings Growth: {earningsGrowth}
       </div>
-
-      <div className = "personal">
       <p></p>
+
+      <div className = "sentimentAnalysis">
       <u>Sentiment Analysis</u> 
       <div className= "rating">{companyRating}</div>
+      </div>
+
       <p></p>
+
       <div className = "news">
       <u className = "links">News Links</u>
       <p></p>
-      <ul className = "map">
-      {newsLinks.map(function(link, index){
-          <p></p>
-          return <a href = {link} > | Link {index + 1} | </a>;
+      <ul className="map">
+        {newsLinks.map(function (link, index) {
+          return (
+            <div key={index}>
+              <a href={link}>Link {index + 1}</a>
+              <br/> 
+            </div>
+          );
         })}
       </ul>
       </div>
-      </div>
-
     </div>
   );
 }
