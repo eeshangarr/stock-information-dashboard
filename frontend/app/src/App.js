@@ -46,7 +46,7 @@ export default function App() {
       <p></p>
       Address: {address}
       <p></p>
-      <a href={website}>Website</a>
+      Website: {website}
       <p></p>
       Key Figure: {keyFigure}
       <p></p>
