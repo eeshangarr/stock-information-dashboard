@@ -121,7 +121,18 @@ def tickerSymbol():
         tickerSymbol = str(request.json.get("tickerSymbol"))
         tickerInformation = yf.Ticker(tickerSymbol).info
 
-        # Get certain information about the stock
+
+        # Error handling
+        keys = ["companyOfficers", "shortName", "currentPrice", "totalRevenue", "address1", "city", "state", "zip", "website", "grossProfits", "grossMargins", "earningsGrowth"]
+        keysNotAvailable = []
+        for key in keys:
+            available = key in tickerInformation
+            if available == False:
+                keysNotAvailable.append(key)
+                tickerInformation[key] = "N/A"
+        
+
+        # Get certain information about the stock from tickerInformation 
         shortName = str(tickerInformation["shortName"]) 
         currentPrice = str(tickerInformation["currentPrice"]) 
         currentPrice = "$" + currentPrice
@@ -129,7 +140,13 @@ def tickerSymbol():
         address = str(tickerInformation["address1"]) +  ", " + str(tickerInformation["city"]) +  ", " + str(tickerInformation["state"]) +  ", " + str(tickerInformation["zip"]) 
         googleMapsLink  = getGoogleMapsLink(address)
         website = str(tickerInformation["website"])
-        keyFigure = str(tickerInformation["companyOfficers"][0]["name"])        
+
+        # Error handling edge case, multidictionary access
+        if "companyOfficers" not in keysNotAvailable:
+            keyFigure = str(tickerInformation["companyOfficers"][0]["name"])   
+        else:
+            keyFigure = "N/A"     
+
         grossProfits = convertToDollar(str(tickerInformation["grossProfits"]))
         grossMargins = str(tickerInformation["grossMargins"])
         earningsGrowth = str(tickerInformation["earningsGrowth"])
@@ -144,9 +161,13 @@ def tickerSymbol():
 
         # Get company rating based on sentiment analysis function
         companyRating = sentimentAnalysis(companyNews(companyName)[0])
+        
+        # Another edge case
+        if totalRevenue == "$N/A.00":
+            totalRevenue = "N/A"
 
-        print("googleMapsLink: " + googleMapsLink)
         # Return dictionary with stock infomration
-        return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating, "newsLinks" : companyNews(companyName)[1], "googleMapsLink" : googleMapsLink}, 200
+        stockInformation = {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating, "newsLinks" : companyNews(companyName)[1], "googleMapsLink" : googleMapsLink}
+        return stockInformation, 200
     
-    return "404", 404
+    return "HTTP 404", 404
