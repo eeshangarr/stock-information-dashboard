@@ -5,6 +5,48 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import requests
 from statistics import mean
 
+def getGoogleMapsLink(address):
+    # Define a place to store the new Google Maps address
+    newAddress = " " 
+
+    # Iterate through address and add in a "+" where there is a space
+    for character in address:
+        if character == ' ':
+            newAddress += "+"
+        elif character != ' ':
+            newAddress += character
+
+    # Append to the original Google Maps link
+    googleMapsLink = "https://www.google.com/maps/place/" + newAddress
+
+    return googleMapsLink
+
+def convertToDollar(number):
+    # Define a new string to return the dollar amount in
+    dollarAmount = ""
+
+    # Define blocks of numbers
+    blocks = []
+
+    # Get every 3 numbers until there are no more numbers
+    index = len(number) - 1
+    while index >= 0:
+        block = number[max(0, index - 2):index + 1]
+        blocks.append(block)
+        index -= 3
+
+    # Iterate backwards through each unit
+    for unit in reversed(blocks):
+        dollarAmount += unit
+        dollarAmount += ","
+    
+    # Add "$", get rid of extra comma at the end, and add a cents amount
+    dollarAmount = "$" + dollarAmount
+    dollarAmount = dollarAmount[: -1]
+    dollarAmount += ".00"
+
+    # Return the dollar amount version of the number string
+    return dollarAmount
 
 def companyNews(company):
     # Define news titles and links list
@@ -82,12 +124,13 @@ def tickerSymbol():
         # Get certain information about the stock
         shortName = str(tickerInformation["shortName"]) 
         currentPrice = str(tickerInformation["currentPrice"]) 
-        totalRevenue = str(tickerInformation["totalRevenue"])
+        currentPrice = "$" + currentPrice
+        totalRevenue = convertToDollar(str(tickerInformation["totalRevenue"]))
         address = str(tickerInformation["address1"]) +  ", " + str(tickerInformation["city"]) +  ", " + str(tickerInformation["state"]) +  ", " + str(tickerInformation["zip"]) 
+        googleMapsLink  = getGoogleMapsLink(address)
         website = str(tickerInformation["website"])
         keyFigure = str(tickerInformation["companyOfficers"][0]["name"])        
-        totalRevenue = str(tickerInformation["totalRevenue"])
-        grossProfits = str(tickerInformation["grossProfits"])
+        grossProfits = convertToDollar(str(tickerInformation["grossProfits"]))
         grossMargins = str(tickerInformation["grossMargins"])
         earningsGrowth = str(tickerInformation["earningsGrowth"])
 
@@ -102,9 +145,8 @@ def tickerSymbol():
         # Get company rating based on sentiment analysis function
         companyRating = sentimentAnalysis(companyNews(companyName)[0])
 
-        print(companyNews(companyName)[1])
-
+        print("googleMapsLink: " + googleMapsLink)
         # Return dictionary with stock infomration
-        return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating, "newsLinks" : companyNews(companyName)[1]}, 200
+        return {"currentPrice" : currentPrice, "totalRevenue" : totalRevenue, "shortName" : shortName, "address" : address, "website" : website, "keyFigure" : keyFigure, "totalRevenue" : totalRevenue, "grossProfits" : grossProfits, "grossMargins" : grossMargins, "earningsGrowth" : earningsGrowth, "companyRating" : companyRating, "newsLinks" : companyNews(companyName)[1], "googleMapsLink" : googleMapsLink}, 200
     
-    return "", 404
+    return "404", 404
