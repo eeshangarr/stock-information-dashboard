@@ -31,7 +31,7 @@ export default function App() {
   return (
     <div className = "frontend">
 
-    <div className = "title">Stock Market Dashboard</div>
+    <div className = "title">TickerInsight</div>
     
     <form onSubmit = {submit}>
     <div className = "input"><input placeholder='Enter Ticker Symbol' class = "tickerSymbol" type = "text" value = {tickerSymbol} onChange = {(event) => setTickerSymbol(event.target.value)}/></div>
