@@ -37,7 +37,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.business {
+.businessTop {
     text-align: left;
     margin-left: 450px;
     animation: fade 5s;
@@ -82,11 +82,25 @@
 }
 
 .companyWebsite {
+    margin-top: 50px;
     margin-left: 450px;
+    animation: fade 5s;
 }
 
 .businessBottom { 
     margin-left: 450px;
-    margin-top: 15px;
+    margin-top: 7.5px;
     animation: fade 5s;
+}
+
+.googleMaps {
+    position: fixed;
+    margin-left: 450px;
+    margin-top: 13.5px;
+    animation: fade 5s;
+}
+
+.leftSide {
+    bottom: 300px;
+    margin-left: -12.5px;
 }

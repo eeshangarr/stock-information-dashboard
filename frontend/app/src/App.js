@@ -16,6 +16,7 @@ export default function App() {
   const [earningsGrowth, setEarningsGrowth] = useState('')
   const [companyRating, setCompanyRating] = useState('')
   const [newsLinks, setNewsLinks] = useState([])
+  const [googleMapsLink, setGoogleMapsLink] = useState('')
 
   // Backend and frontend communication
   const submit = async (event) => {
@@ -23,7 +24,7 @@ export default function App() {
     // Send ticker symbol to backend
     await axios.post("http://localhost:5000/tickerSymbol", {tickerSymbol})
       // Get stock information from the backend
-      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating); setNewsLinks(data.newsLinks);})
+      .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating); setNewsLinks(data.newsLinks); setGoogleMapsLink(data.googleMapsLink)})
   };
 
   // Frontend for user input and information display
@@ -37,19 +38,17 @@ export default function App() {
     <div className = "button"><button className = "submitButton" type = "submit">Submit</button></div>
     </form>
 
-      <div className = "business">
+      <div className = "leftSide">
+      <div className = "businessTop">
       Total Revenue: {totalRevenue}
       <p></p>
       Current Price: {currentPrice}
       <p></p>
       Short Name: {shortName}
-      <p></p>
-      Address: {address}
-      <p></p>
       </div>
-      <div className = "companyWebsite"><a href = {website}>{website}</a></div>
+      <div className = "googleMaps">Address: <a href = {googleMapsLink}>{address}</a></div>
+      <div className = "companyWebsite">Website: <a href = {website}>{website}</a></div>
       <div className = "businessBottom">
-      Website: {website}
       <p></p>
       Key Figure: {keyFigure}
       <p></p>
@@ -60,6 +59,7 @@ export default function App() {
       Earnings Growth: {earningsGrowth}
       </div>
       <p></p>
+      </div>
 
       <div className = "sentimentAnalysis">
       <u>Sentiment Analysis</u> 
