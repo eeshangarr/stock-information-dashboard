@@ -1,4 +1,4 @@
-# stock-market-dashboard
+# tickerInsight
 A stock market dashboard that allows users to make smarter investment decisions.
 
 To run:
