@@ -1,5 +1,5 @@
-import React, {useState} from 'react' 
-import "./App.css"
+import React, {useState} from 'react' // Import React and useState
+import "./App.css" // Import .css file for styling the frontend 
 import axios from 'axios' // Axios is used to communicate with the backend
 
 export default function App() {
@@ -22,7 +22,7 @@ export default function App() {
   const submit = async (event) => {
     event.preventDefault();
     // Send ticker symbol to backend
-    await axios.post("http://localhost:5000/tickerSymbol", {tickerSymbol})
+    await axios.post("http://localhost:5000/stockInformation", {tickerSymbol})
       // Get stock information from the backend
       .then(response => {const {data} = response; setTotalRevenue(data.totalRevenue); setCurrentPrice(data.currentPrice); setShortName(data.shortName); setAddress(data.address); setWebsite(data.website); setKeyFigure(data.keyFigure); setGrossProfits(data.grossProfits); setGrossMargins(data.grossMargins); setEarningsGrowth(data.earningsGrowth); setCompanyRating(data.companyRating); setNewsLinks(data.newsLinks); setGoogleMapsLink(data.googleMapsLink)})
   };
@@ -30,14 +30,11 @@ export default function App() {
   // Frontend for user input and information display
   return (
     <div className = "frontend">
-
     <div className = "title">TickerInsight</div>
-    
     <form onSubmit = {submit}>
     <div className = "input"><input placeholder='Enter Ticker Symbol' class = "tickerSymbol" type = "text" value = {tickerSymbol} onChange = {(event) => setTickerSymbol(event.target.value)}/></div>
     <div className = "button"><button className = "submitButton" type = "submit">Submit</button></div>
     </form>
-
       <div className = "leftSide">
       <div className = "businessTop">
       Total Revenue: {totalRevenue}
@@ -60,14 +57,11 @@ export default function App() {
       </div>
       <p></p>
       </div>
-
       <div className = "sentimentAnalysis">
       <u>Sentiment Analysis</u> 
       <div className= "rating">{companyRating}</div>
       </div>
-
       <p></p>
-
       <div className = "news">
       <u className = "links">News Links</u>
       <p></p>
