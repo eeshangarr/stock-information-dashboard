@@ -5,6 +5,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import requests
 from statistics import mean
 
+# Get a Google Maps link given an address
 def getGoogleMapsLink(address):
     # Define a place to store the new Google Maps address
     newAddress = " " 
@@ -19,8 +20,10 @@ def getGoogleMapsLink(address):
     # Append to the original Google Maps link
     googleMapsLink = "https://www.google.com/maps/place/" + newAddress
 
+    # Return the Google Maps link
     return googleMapsLink
 
+# Convert a number to a dollar amount
 def convertToDollar(number):
     # Define a new string to return the dollar amount in
     dollarAmount = ""
@@ -110,12 +113,13 @@ def sentimentAnalysis(titles):
     # Return the rating
     return rating
 
-
+# Define a Flask application in "app"
 app = Flask(__name__)
 
-@app.route("/tickerSymbol", methods = ["POST", "OPTIONS"])
+# /tickerSymbol route
+@app.route("/stockInformation", methods = ["POST", "OPTIONS"])
 @cross_origin()
-def tickerSymbol():
+def stockInformation():
     # Get ticker symbol from frontend
     if request.method == "POST":
         tickerSymbol = str(request.json.get("tickerSymbol"))
