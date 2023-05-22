@@ -28,7 +28,7 @@ To run this project,
      - `npm install`
 4.  Now, you will need to open two separate terminals:
     - In the first terminal, `cd frontend/app` & `npm start`.
-    - In the second terminal, `cd backend` & `py/python3 -m flask run`
+    - In the second terminal, `cd backend` & `py/python3 -m flask run`. (Hint: If you're on Windows, use `py`. If you're on MacOS, use `python3`)
 5. Go to your browser and open `localhost:3000` to view the project!
 
 ## Credits
