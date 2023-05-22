@@ -11,9 +11,7 @@ To solve this problem, I did what any one would do: I opened Google. I was bomba
 What if I could make a free application to help users make informed investment decisions that catered to the average investor, like myself?
 
 ## Description
-To use the application, input a ticker symbol for any company you wish and click the submit button. Afterwards, you will be presented with the following:
-    -  On the left side, you will see financial information about the company.
-    -  On the right side, you will see a sentiment analysis (VADER) of the company and recent news articles about the company. 
+To use the application, input a ticker symbol for any company you wish and click the submit button. On the left side, you will see financial information about the company. On the right side, you will see a sentiment analysis (VADER) of the company and recent news articles about the company. 
     
 This project was built using React for the frontend and Python for the backend.
 
