@@ -1,4 +1,4 @@
-## TickerInsight
+# TickerInsight
 
 # Description 
 
