@@ -1,8 +1,8 @@
 # TickerInsight
 
-# Description 
+## Description 
 
-# Instructions
+## Instructions
 
 
 
