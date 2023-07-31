@@ -18,7 +18,7 @@ This project was built using React for the frontend and Python for the backend.
 ## Instructions
 To run this project,
 
-1. `git clone https://github.com/eeshangarr/TickerInsight.git`
+1. `git clone https://github.com/eeshangarr/stock-information-dashboard.git`
 2.  Open the cloned folder in any environment of your choice.
 3.  To install packages and dependencies in `package.json`:
      -  Navigate to Terminal
