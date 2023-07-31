@@ -1,5 +1,5 @@
-# TickerInsight
-TickerInsight is a dashboard designed to help users make informed investment decisions.
+# stock-information-dashboard
+This is a dashboard designed to help users make informed investment decisions.
 
 ## Inspiration
 When I opened my first investment account, I was head-over-heels with emotion. I couldn't wait to start buying and selling stocks of the worlds most renown companies. 
@@ -31,6 +31,3 @@ To run this project,
 
 ## Credits
 Eeshan Garr
-
-
-
